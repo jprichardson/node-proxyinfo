@@ -1,11 +1,10 @@
 
 path = require('path')
-express = require('express')
 http = require('http')
 jade = require('jade')
 require('string')
 
-proxySpecific = ['x-forwarded-for', 'forwarded', 'client_ip', 'via', 'proxy_connection', 'xroxy_connection',]
+proxySpecific = ['forwarded-for', 'forwarded-port', 'forwarded-proto','forwarded', 'client_ip', 'via', 'proxy_connection', 'xroxy_connection']
 
 exports = module.exports
 
@@ -63,7 +62,7 @@ exports.createProxyApp = (params = {}, callback) ->
 
     for header in req.headers
       for ps in proxySpecific
-        if header.toLowerCase().endsWith(ps)
+        if header.trim().toLowerCase().endsWith(ps)
           proxyHeaders[header] = req.headers[header]
           count += 1
           if ps is 'x-forwarded-for'
@@ -77,7 +76,7 @@ exports.createProxyApp = (params = {}, callback) ->
 
     if countryLookup?
       geoip = require('geoip-lite')
-      lookup = geoip.lookup(ipaddress)
+      lookup = geoip.lookup(req.connection.remoteAddress)
       if lookup?
         country = lookup.country
 

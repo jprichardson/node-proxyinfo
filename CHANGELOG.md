@@ -1,4 +1,11 @@
+2012-02-09 / 0.0.3
+==================
+* Fixed country bug due to remote port.
+* Cleaned up directory structure.
+* Fixed bug due to not showing proxy headers.
+
 2012-02-09 / 0.0.2
+===================
 * Typos in README.
 * Added remote port.
 * Removed dependency on Express.

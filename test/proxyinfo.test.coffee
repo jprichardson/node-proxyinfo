@@ -13,5 +13,7 @@ describe 'proxyinfo', ->
         T browser.text('#user-agent').length > 0
         T browser.text('#ipaddress').length > 0
         T browser.text('#type').length > 0
+        console.log browser.text('#type')
+        #T browser.text('#type') is 'elite' #since we are not actually connected to a proxy
         done()
 
