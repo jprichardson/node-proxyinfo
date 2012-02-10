@@ -13,7 +13,6 @@ template = '''
 html
   head
     title Proxy Info
-    link(rel='stylesheet', href='/stylesheets/style.css')
   body
     style
       td.key {text-align: right}
@@ -60,7 +59,7 @@ exports.createProxyApp = (params = {}, callback) ->
     type = 'anonymous'
     count = 0
 
-    for header in req.headers
+    for header,val of req.headers
       for ps in proxySpecific
         if header.trim().toLowerCase().endsWith(ps)
           proxyHeaders[header] = req.headers[header]
