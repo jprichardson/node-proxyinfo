@@ -1,35 +1,62 @@
 
 path = require('path')
 express = require('express')
+http = require('http')
+jade = require('jade')
 require('string')
 
 proxySpecific = ['x-forwarded-for', 'forwarded', 'client_ip', 'via', 'proxy_connection', 'xroxy_connection',]
 
 exports = module.exports
 
+template = '''
+!!! 5
+html
+  head
+    title Proxy Info
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    style
+      td.key {text-align: right}
+      td.val {padding-left: 10px}
+
+    p 
+      h3 All Headers: 
+      table
+        - for (var key in headers)
+          tr
+            td.key <strong>#{key}</strong>
+            td(id="#{key}").val= headers[key]
+
+    p
+      h3 Proxy Specific Headers:
+      table
+        - for (var key in proxyHeaders)
+          tr
+            td.key <strong style="color: red;">#{key}</strong>
+            td.val= proxyHeaders[key]
+
+    p
+      h3 Proxy Info:
+      table
+        tr
+          td.key Origin IP Address
+          td(id="ipaddress").val= ip.address
+        tr
+          td.key Country
+          td(id="country").val= ip.country
+        tr
+          td.key Type
+          td(id="type").val= ip.type
+'''
+
+fn = jade.compile(template, pretty: true)
+
+
 exports.createProxyApp = (params = {}, callback) ->
   countryLookup = params.countryLookup or= false
 
-  app = express.createServer()
-
-  app.configure ->
-    app.set('views', path.join(__dirname, '../app/views'))
-    app.set('view engine', 'jade')
-    app.set('view options', pretty: true)
-    #app.register('.coffee', ck.adapters.express)
-    app.use(express.bodyParser())
-    app.use(express.methodOverride())
-    app.use(app.router)
-    app.use(express.static(path.join(__dirname, '../app/public')))
-    app.use(express.errorHandler(dumpExceptions: true, showStack: true))
-
-  app.configure "development", -> app.use express.errorHandler dumpExceptions: true, showStack: true
-  app.configure "test", -> app.use express.errorHandler dumpExceptions: true, showStack: true
-  app.configure "testing", -> app.use express.errorHandler dumpExceptions: true, showStack: true
-
-  app.configure "production", -> app.use express.errorHandler()
-
-  app.get '/', (req, res) ->
+  app = http.createServer (req, res) -> 
     proxyHeaders = {}
     type = 'anonymous'
     count = 0
@@ -46,7 +73,7 @@ exports.createProxyApp = (params = {}, callback) ->
       type = 'elite'
 
     country = ''
-    ipaddress = req.connection.remoteAddress
+    ipaddress = req.connection.remoteAddress + ':' + req.connection.remotePort
 
     if countryLookup?
       geoip = require('geoip-lite')
@@ -54,8 +81,12 @@ exports.createProxyApp = (params = {}, callback) ->
       if lookup?
         country = lookup.country
 
-    ip = {address: ipaddress, country: country, type: type} 
-    res.render 'index', headers: req.headers, proxyHeaders: proxyHeaders, ip: ip
+    ip = {address: ipaddress, country: country, type: type}
+    data = headers: req.headers, proxyHeaders: proxyHeaders, ip: ip
+    #res.render 'index', data
+    html = fn(data)
+    res.writeHead 200, 'Content-Type': 'text/html'
+    res.end(html)
 
   callback(app)
 
