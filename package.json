@@ -1,6 +1,6 @@
 {
     "name": "proxyinfo",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "Program to report HTTP request headers and proxy information to connected clients.",
     "homepage": [ 
           "https://github.com/github.com/jprichardson/node-proxyinfo"

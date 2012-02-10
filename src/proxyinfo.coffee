@@ -64,7 +64,7 @@ exports.createProxyApp = (params = {}, callback) ->
         if header.trim().toLowerCase().endsWith(ps)
           proxyHeaders[header] = req.headers[header]
           count += 1
-          if ps is 'x-forwarded-for'
+          if ps is 'forwarded-for'
             type = 'transparent'
 
     if count is 0

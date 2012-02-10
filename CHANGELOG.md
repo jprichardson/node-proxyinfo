@@ -1,3 +1,7 @@
+2012-02-09 / 0.0.5
+==================
+* Proxy type not set properly.
+
 2012-02-09 / 0.0.4
 ==================
 * Fixed bug due to not showing proxy headers.
