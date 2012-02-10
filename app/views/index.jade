@@ -1,0 +1,33 @@
+style
+  td.key {text-align: right}
+  td.val {padding-left: 10px}
+
+p 
+  h3 All Headers: 
+  table
+    - for (var key in headers)
+      tr
+        td.key <strong>#{key}</strong>
+        td(id="#{key}").val= headers[key]
+
+p
+  h3 Proxy Specific Headers:
+  table
+    - for (var key in proxyHeaders)
+      tr
+        td.key <strong style="color: red;">#{key}</strong>
+        td.val= proxyHeaders[key]
+
+p
+  h3 Proxy Info:
+  table
+    tr
+      td.key Origin IP Address
+      td(id="ipaddress").val= ip.address
+    tr
+      td.key Country
+      td(id="country").val= ip.country
+    tr
+      td.key Type
+      td(id="type").val= ip.type
+

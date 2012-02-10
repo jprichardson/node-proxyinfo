@@ -1,0 +1,33 @@
+{
+    "name": "proxyinfo",
+    "version": "0.0.1",
+    "description": "Program to report HTTP request headers and proxy information to connected clients.",
+    "homepage": [ 
+          "https://github.com/github.com/jprichardson/node-proxyinfo"
+     ], 
+     "repository": {
+         "type": "git", 
+         "url": "https://github.com/jprichardson/node-proxyinfo"
+    },
+    "keywords": ["http","headers","proxy","proxies"], 
+    "author": "JP Richardson <jprichardson@gmail.com>",
+    "licenses":[{
+        "type" : "MIT",
+        "url" : "http://github.com/jprichardson/node-proxyinfo/raw/master/LICENSE"
+    }],
+    "dependencies": {
+      "express": ">=2.5.8",
+      "jade": ">=0.20.1",
+      "string": ">=0.0.4"
+      "geoip-lite": ">=1.0.5"
+    },
+    "devDependencies": {
+        "coffee-script" : ">=1.0.1", 
+        "mocha": ">=0.10",
+        "testutil": ">=0.0.3",
+        "zombie": ">=0.12.14"
+    }, 
+    "main": "lib/proxyinfo",
+    "bin": "bin/proxyinfo",
+    "test": "cake test"
+}
