@@ -1,7 +1,8 @@
 proxyinfo = require('./lib/proxyinfo');
 
 proxyinfo.createProxyApp({countryLookup: true}, function(app){
-    app.listen(80);
+    port = process.env.PORT || 80;
+    app.listen(port);
     if (app.address() === null || app.address() === undefined) {
       console.log("Error starting proxyinfo. Did you start as a priviledged user?");
     } else {
