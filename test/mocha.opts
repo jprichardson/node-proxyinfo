@@ -3,3 +3,4 @@
 --growl
 --timeout 7000
 --globals file,fd,lookup4,lookup6
+--compilers coffee:coffee-script

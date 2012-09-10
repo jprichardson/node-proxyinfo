@@ -1,3 +1,5 @@
+[![build status](https://secure.travis-ci.org/jprichardson/proxyinfo.png)](http://travis-ci.org/jprichardson/proxyinfo)
+
 Proxy Info
 ==========
 

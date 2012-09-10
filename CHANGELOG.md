@@ -1,3 +1,8 @@
+0.0.6 / 2012-09-10
+------------------
+* Updated deps
+* Added Travis-CI support
+
 2012-02-09 / 0.0.5
 ==================
 * Proxy type not set properly.

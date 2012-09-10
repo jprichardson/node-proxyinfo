@@ -2,7 +2,7 @@
 path = require('path')
 http = require('http')
 jade = require('jade')
-require('string')
+S = require('string')
 
 proxySpecific = ['forwarded-for', 'forwarded-port', 'forwarded-proto','forwarded', 'client_ip', 'via', 'proxy_connection', 'xroxy_connection']
 
@@ -61,7 +61,7 @@ exports.createProxyApp = (params = {}, callback) ->
 
     for header,val of req.headers
       for ps in proxySpecific
-        if header.trim().toLowerCase().endsWith(ps)
+        if S(header.trim().toLowerCase()).endsWith(ps)
           proxyHeaders[header] = req.headers[header]
           count += 1
           if ps is 'forwarded-for'
