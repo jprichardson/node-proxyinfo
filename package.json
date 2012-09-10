@@ -24,7 +24,7 @@
   ],
   "dependencies": {
     "jade": "0.20.x",
-    "string": "~0.2.1-2",
+    "string": "0.2.x",
     "geoip-lite": "1.0.x"
   },
   "devDependencies": {
@@ -35,5 +35,8 @@
   },
   "main": "lib/proxyinfo",
   "bin": "bin/proxyinfo",
-  "test": "mocha test"
+  "test": "mocha test",
+  "engines": {
+    "node": "0.8.x"
+  }
 }
