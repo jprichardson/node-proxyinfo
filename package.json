@@ -35,5 +35,5 @@
   },
   "main": "lib/proxyinfo",
   "bin": "bin/proxyinfo",
-  "test": "cake test"
+  "test": "mocha test"
 }
