@@ -74,8 +74,8 @@ exports.createProxyApp = (params = {}, callback) ->
     ipaddress = req.connection.remoteAddress + ':' + req.connection.remotePort
 
     if countryLookup?
-      geoip = require('geoip-lite')
-      lookup = geoip.lookup(req.connection.remoteAddress)
+      #geoip = require('geoip-lite')
+      #lookup = geoip.lookup(req.connection.remoteAddress)
       if lookup?
         country = lookup.country
 
